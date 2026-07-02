@@ -119,14 +119,24 @@ ${text}
 
         const data = await response.json();
 
-        console.log("OpenRouter response:", data);
+        
+console.log("HTTP Status:", response.status);
 
-        if (!response.ok) {
-            document.getElementById("output").innerText =
-                "API Error:\n\n" +
-                JSON.stringify(data, null, 2);
-            return;
-        }
+const rawResponse = await response.text();
+
+console.log("Raw Response:", rawResponse);
+
+if (!response.ok) {
+    document.getElementById("output").innerText =
+        `HTTP ${response.status}\n\n${rawResponse}`;
+    return;
+}
+
+const data = JSON.parse(rawResponse);
+
+document.getElementById("output").innerText =
+    data.choices[0].message.content;
+
 
         document.getElementById("output").innerText =
             data.choices[0].message.content;
