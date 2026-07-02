@@ -50,7 +50,7 @@ async function improveWithAI(text) {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
-      "Authorization": "Bearer YOUR_API_KEY",
+      "Authorization": "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",
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
