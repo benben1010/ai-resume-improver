@@ -96,27 +96,29 @@ ${text}
 
     try {
 
-        const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": window.location.origin,
-                    "X-Title": "AI Resume Improver"
-                },
-                body: JSON.stringify({
-                    model: "meta-llama/llama-3.1-8b-instruct:free",
-                    messages: [
-                        {
-                            role: "user",
-                            content: prompt
-                        }
-                    ]
-                })
-            }
-        );
+        
+const response = await fetch(
+    "https://openrouter.ai/api/v1/chat/completions",
+    {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+            "Content-Type": "application/json",
+            "HTTP-Referer": window.location.origin,
+            "X-Title": "AI Resume Improver"
+        },
+        body: JSON.stringify({
+            model: "meta-llama/llama-3.1-8b-instruct:free",
+            messages: [
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ]
+        })
+    }
+);
+
 
         console.log("HTTP Status:", response.status);
 
