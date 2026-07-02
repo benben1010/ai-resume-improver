@@ -1,1 +1,9 @@
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 14px;
+}
 
+.card {
+  border-radius: 15px;
+}
