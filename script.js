@@ -1,4 +1,5 @@
 async function processFile() {
+  console.log("Button clicked");
   const file = document.getElementById("fileInput").files[0];
 
   if (!file) {
