@@ -96,6 +96,10 @@ ${text}
 `;
 
     try {
+        
+console.log("API Key exists:", !!OPENROUTER_API_KEY);
+console.log("Key starts with:", OPENROUTER_API_KEY.substring(0, 12));
+
 
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
