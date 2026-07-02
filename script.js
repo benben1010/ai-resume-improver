@@ -17,7 +17,6 @@ async function processFile() {
     alert("Only PDF or DOCX allowed");
     return;
   }
-
   document.getElementById("text").innerText = text;
 
   improveWithAI(text);
