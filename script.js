@@ -112,6 +112,7 @@ headers: {
     "HTTP-Referer": window.location.origin,
     "X-Title": "AI Resume Improver"
 }
+    console.log("Response status:", response.status);
 
                 body: JSON.stringify({
                     model: "meta-llama/llama-3.1-8b-instruct:free",
