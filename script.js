@@ -54,7 +54,7 @@ async function improveWithAI(text) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      model: "openai/gpt-3.5-turbo",
+      model: "mistralai/mistral-7b-instruct:free",
       messages: [{
         role: "user",
         content: `Analyze and improve this resume:
