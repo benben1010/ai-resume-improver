@@ -67,7 +67,32 @@ async function readDOCX(file) {
 
 async function improveWithAI(text) {
 
-    document.getElementById("output").innerText = "Testing API...";
+    document.getElementById("output").innerText =
+        "Analyzing resume...";
+
+    const jobDescription =
+        document.getElementById("jobDescription")?.value || "";
+
+    const prompt = `
+You are an expert ATS and resume reviewer.
+
+Analyze this resume and provide:
+
+1. Resume Score (/100)
+2. ATS Score (/100)
+3. Strengths
+4. Weaknesses
+5. Missing Keywords
+6. Improvement Suggestions
+7. Improved Professional Summary
+8. Improved Experience Bullet Points
+
+Job Description:
+${jobDescription}
+
+Resume:
+${text}
+`;
 
     try {
 
@@ -77,31 +102,44 @@ async function improveWithAI(text) {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": window.location.origin,
+                    "X-Title": "AI Resume Improver"
                 },
                 body: JSON.stringify({
                     model: "meta-llama/llama-3.1-8b-instruct:free",
                     messages: [
                         {
                             role: "user",
-                            content: "Say only HELLO"
+                            content: prompt
                         }
                     ]
                 })
             }
         );
 
-        const raw = await response.text();
+        console.log("HTTP Status:", response.status);
 
-        console.log("Status:", response.status);
-        console.log("Response:", raw);
+        const rawResponse = await response.text();
+
+        console.log("Raw Response:", rawResponse);
+
+        if (!response.ok) {
+            document.getElementById("output").innerText =
+                `HTTP ${response.status}\n\n${rawResponse}`;
+            return;
+        }
+
+        const data = JSON.parse(rawResponse);
 
         document.getElementById("output").innerText =
-            `Status: ${response.status}\n\n${raw}`;
+            data.choices[0].message.content;
 
     } catch (error) {
+
+        console.error(error);
+
         document.getElementById("output").innerText =
-            error.message;
+            "Request failed: " + error.message;
     }
-}
 }
